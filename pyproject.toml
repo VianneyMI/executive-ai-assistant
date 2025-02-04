@@ -1,3 +1,10 @@
+[project]
+name = "eaia"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.11"
+
 [tool.poetry]
 name = "eaia"
 version = "0.1.0"
