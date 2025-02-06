@@ -1,5 +1,6 @@
 import argparse
 import asyncio
+import os
 from typing import Optional
 from eaia.gmail import fetch_group_emails
 from eaia.main.config import get_config
@@ -99,21 +100,22 @@ if __name__ == "__main__":
     parser.add_argument(
         "--gmail-token",
         type=str,
-        default=None,
+        default=os.environ.get("GMAIL_TOKEN"),
         help="The token to use in communicating with the Gmail API.",
     )
     parser.add_argument(
         "--gmail-secret",
         type=str,
-        default=None,
+        default=os.environ.get("GMAIL_CLIENT_SECRET"),
         help="The creds to use in communicating with the Gmail API.",
     )
     parser.add_argument(
         "--email",
         type=str,
-        default=None,
+        default=os.environ.get("GMAIL_EMAIL"),
         help="The email address to use",
     )
+
 
     args = parser.parse_args()
     print("=====================================")
