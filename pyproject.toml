@@ -2,50 +2,45 @@
 name = "eaia"
 version = "0.1.0"
 description = ""
-readme = "README.md"
-requires-python = ">=3.11"
-
-[tool.poetry]
-name = "eaia"
-version = "0.1.0"
-description = ""
 authors = []
+requires-python = ">=3.11"
 readme = "README.md"
+dependencies = [
+    "langgraph>=0.2.48,<0.3",
+    "langgraph-checkpoint>=2.0.0,<3",
+    "langchain>=0.3.9,<0.4",
+    "langchain-openai>=0.2,<0.3",
+    "langchain-anthropic>=0.3,<0.4",
+    "google-api-python-client>=2.128.0,<3",
+    "google-auth-oauthlib>=1.2.0,<2",
+    "google-auth-httplib2>=0.2.0,<0.3",
+    "langgraph-sdk>=0.1,<0.2",
+    "langsmith>=0.2,<0.3",
+    "pytz",
+    "pyyaml",
+    "python-dateutil>=2.9.0.post0,<3",
+    "python-dotenv>=1.0.1,<2",
+]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-langgraph = "^0.2.48"
-langgraph-checkpoint = "^2.0.0"
-langchain = "^0.3.9"
-langchain-openai = "^0.2"
-langchain-anthropic = "^0.3"
-google-api-python-client = "^2.128.0"
-google-auth-oauthlib = "^1.2.0"
-google-auth-httplib2 = "^0.2.0"
-langgraph-sdk = "^0.1"
-langsmith = "^0.2"
-pytz = "*"
-pyyaml = "*"
-python-dateutil = "^2.9.0.post0"
-python-dotenv = "^1.0.1"
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.4,<7",
+    "pytest-asyncio>=0.23.6,<0.24",
+    "pytest>=8.2.0,<9",
+    "pytest-watch>=4.2.0,<5",
+    "vcrpy>=6.0.1,<7",
+    "langgraph-cli>=0.1.35,<0.2",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
 customer_support = ["*.txt", "*.rst"]
-
-[tool.poetry.group.dev.dependencies]
-ipykernel = "^6.29.4"
-pytest-asyncio = "^0.23.6"
-pytest = "^8.2.0"
-pytest-watch = "^4.2.0"
-vcrpy = "^6.0.1"
-langgraph-cli = "^0.1.35"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
