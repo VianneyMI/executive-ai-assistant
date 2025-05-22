@@ -35,43 +35,31 @@ _TOKEN_PATH = str(_SECRETS_DIR / "token.json")
 def get_credentials(
     gmail_token: str | None = None, gmail_secret: str | None = None
 ) -> Credentials:
-    # creds = None
-    # _SECRETS_DIR.mkdir(parents=True, exist_ok=True)
-    # gmail_token = gmail_token or os.getenv("GMAIL_TOKEN")
-    # if gmail_token:
-    #     with open(_TOKEN_PATH, "w") as token:
-    #         token.write(gmail_token)
-    # gmail_secret = gmail_secret or os.getenv("GMAIL_SECRET")
-    # if gmail_secret:
-    #     with open(_SECRETS_PATH, "w") as secret:
-    #         secret.write(gmail_secret)
-    # if os.path.exists(_TOKEN_PATH):
-    #     creds = Credentials.from_authorized_user_file(_TOKEN_PATH)
+    creds = None
+    _SECRETS_DIR.mkdir(parents=True, exist_ok=True)
 
-    # if not creds or not creds.valid or not creds.has_scopes(_SCOPES):
-    #     if (
-    #         creds
-    #         and creds.expired
-    #         and creds.refresh_token
-    #         and creds.has_scopes(_SCOPES)
-    #     ):
-    #         creds.refresh(Request())
-    #     else:
-    #         flow = InstalledAppFlow.from_client_secrets_file(_SECRETS_PATH, _SCOPES)
-    #         creds = flow.run_local_server(port=_PORT)
-    #     with open(_TOKEN_PATH, "w") as token:
-    #         token.write(creds.to_json())
-    load_dotenv()
-    creds = Credentials.from_authorized_user_info(
-        {
-            "client_id": os.environ["GMAIL_CLIENT_ID"],
-            "client_secret": os.environ["GMAIL_CLIENT_SECRET"],
-            "refresh_token": os.environ["GMAIL_TOKEN"],
-     
-        }
+    # Only handle the secrets file
+    gmail_secret = gmail_secret or os.getenv("GMAIL_SECRET")
+    if gmail_secret:
+        with open(_SECRETS_PATH, "w") as secret:
+            secret.write(gmail_secret)
 
-    )
+    if os.path.exists(_TOKEN_PATH):
+        creds = Credentials.from_authorized_user_file(_TOKEN_PATH)
 
+    if not creds or not creds.valid or not creds.has_scopes(_SCOPES):
+        if (
+            creds
+            and creds.expired
+            and creds.refresh_token
+            and creds.has_scopes(_SCOPES)
+        ):
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(_SECRETS_PATH, _SCOPES)
+            creds = flow.run_local_server(port=_PORT)
+        with open(_TOKEN_PATH, "w") as token:
+            token.write(creds.to_json())
 
     return creds
 
